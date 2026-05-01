@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        body { font-family: Arial; text-align: center; background:#667eea; color:white; }
+        .box { background:white; color:black; padding:20px; width:350px; margin:50px auto; border-radius:10px; }
+        input { width:90%; padding:8px; margin:5px; }
+        button { padding:10px; background:#667eea; color:white; border:none; cursor:pointer; }
+    </style>
+</head>
+<body>
+
+<h2>Registration</h2>
+<div class="box">
+    <input type="text" id="name" placeholder="Name"><br>
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="text" id="mobile" placeholder="Mobile"><br>
+    <input type="date" id="dob"><br>
+    <input type="text" id="city" placeholder="City"><br>
+    <input type="text" id="address" placeholder="Address"><br>
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+
+    <button onclick="register()">Register</button>
+</div>
+
+<script>
+function ajaxPost(data, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "fake-api", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) callback();
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+function register() {
+    const user = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        mobile: document.getElementById("mobile").value,
+        dob: document.getElementById("dob").value,
+        city: document.getElementById("city").value,
+        address: document.getElementById("address").value,
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    if (!user.name || !user.email || !user.mobile || !user.username || !user.password) {
+        alert("All fields required"); return;
+    }
+
+    if (!/^\d{10}$/.test(user.mobile)) {
+        alert("Invalid mobile"); return;
+    }
+
+    if (user.password.length < 5) {
+        alert("Password must be 5+ chars"); return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.find(u => u.username === user.username)) {
+        alert("Username exists"); return;
+    }
+
+    ajaxPost(user, function () {
+        users.push(user);
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Registered Successfully");
+
+        // 🔥 redirect to login page
+        window.location.href = "login.html";
+    });
+}
+</script>
+
+</body>
+</html>

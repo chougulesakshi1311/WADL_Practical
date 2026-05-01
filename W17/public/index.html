@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Directory</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:#f2f2f2;
+            padding:20px;
+        }
+
+        .container{
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .card{
+            background:white;
+            padding:15px;
+            width:250px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        img{
+            width:120px;
+            height:120px;
+            border-radius:50%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Employee Directory</h1>
+    
+    <div class="container" id="employees"></div>
+
+    <script>
+        fetch('/api/employees')
+            .then(response => response.json())
+            .then(data => {
+                let output = ""
+                data.forEach(emp => {
+                    output += `
+                        <div class="card">
+                            <img src="${emp.image}">
+                            <h3>${emp.name}</h3>
+                            <p>Designation: ${emp.designation}</p>
+                            <p>Department: ${emp.department}</p>
+                            <p>Salary: ${emp.salary}</p>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('employees').innerHTML = output;
+            });
+    </script>
+</body>
+</html>

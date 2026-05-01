@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Directory</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #eef2f3, #dfe9f3);
+    margin: 0;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin: 30px 0;
+    color: #333;
+}
+
+/* Grid Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Avatar */
+.avatar {
+    width: 70px;
+    height: 70px;
+    background: #007bff;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+/* Text */
+.card h3 {
+    margin: 10px 0;
+    color: #222;
+}
+
+.card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* City Badge */
+.city {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 12px;
+    background: #e3f2fd;
+    color: #007bff;
+    border-radius: 20px;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>User Directory</h2>
+
+<div class="container" id="users"></div>
+
+<script>
+fetch('/api/users')
+.then(res => res.json())
+.then(data => {
+    const container = document.getElementById('users');
+
+    data.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+            <div class="avatar">${user.name.charAt(0)}</div>
+            <h3>${user.name}</h3>
+            <p>📧 ${user.email}</p>
+            <span class="city">${user.city}</span>
+        `;
+
+        container.appendChild(card);
+    });
+});
+</script>
+
+</body>
+</html>
