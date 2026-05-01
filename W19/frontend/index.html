@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎓 Student Dashboard</h1>
+
+    <div class="card">
+        <button onclick="insertData()">Insert Students</button>
+        <button onclick="getAll()">Show All Students</button>
+        <button onclick="dsbda()">DSBDA > 20</button>
+        <button onclick="above25()">Above 25 All Subjects</button>
+        <button onclick="less40()">Less than 40 (WAD & CNS)</button>
+        <button onclick="showTable()">Show Table</button>
+    </div>
+
+    <div class="card">
+        <h3>Update Marks</h3>
+        <input type="text" id="updateName" placeholder="Enter Name">
+        <button onclick="updateMarks()">Update (+10 WAD)</button>
+    </div>
+
+    <div class="card">
+        <h3>Delete Student</h3>
+        <input type="text" id="deleteName" placeholder="Enter Name">
+        <button onclick="deleteStudent()">Delete</button>
+    </div>
+
+    <div class="card">
+        <h2>Output</h2>
+        <pre id="output"></pre>
+        <div id="tableOutput"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

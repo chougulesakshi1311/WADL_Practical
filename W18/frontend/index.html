@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎵 Music Dashboard</h1>
+
+    <!-- Buttons -->
+    <div class="card">
+        <button onclick="insertSongs()">Insert Songs</button>
+        <button onclick="getAll()">All Songs</button>
+        <button onclick="showTable()">Show Table</button>
+    </div>
+
+    <!-- Director Search -->
+    <div class="card">
+        <h3>Search by Director</h3>
+        <input id="directorName" placeholder="Director Name">
+        <button onclick="getDirectorSongs()">Search</button>
+    </div>
+
+    <!-- Director + Singer -->
+    <div class="card">
+        <h3>Director + Singer</h3>
+        <input id="dir" placeholder="Director">
+        <input id="singer" placeholder="Singer">
+        <button onclick="getDirectorSinger()">Search</button>
+    </div>
+
+    <!-- Singer + Film -->
+    <div class="card">
+        <h3>Singer + Film</h3>
+        <input id="filmSinger" placeholder="Singer">
+        <input id="filmName" placeholder="Film">
+        <button onclick="getSingerFilm()">Search</button>
+    </div>
+
+    <!-- Add Song -->
+    <div class="card">
+        <h3>Add Song</h3>
+        <input id="songname" placeholder="Song Name">
+        <input id="film" placeholder="Film">
+        <input id="music" placeholder="Music Director">
+        <input id="singerAdd" placeholder="Singer">
+        <button onclick="addSong()">Add</button>
+    </div>
+
+    <!-- Update Actor -->
+    <div class="card">
+        <h3>Update Actor/Actress</h3>
+        <input id="updateSong" placeholder="Song Name">
+        <input id="actor" placeholder="Actor">
+        <input id="actress" placeholder="Actress">
+        <button onclick="updateActor()">Update</button>
+    </div>
+
+    <!-- Delete -->
+    <div class="card">
+        <h3>Delete Song</h3>
+        <input id="deleteSong" placeholder="Song Name">
+        <button onclick="deleteSong()">Delete</button>
+    </div>
+
+    <!-- Output -->
+    <div class="card">
+        <h2>Output</h2>
+        <pre id="output"></pre>
+        <div id="tableOutput"></div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

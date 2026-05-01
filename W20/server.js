@@ -3,6 +3,9 @@ const app = express();
 const dbconfig = require('./dbconfig/dbconfig');
 const employeeRoutes = require('./routes/employee');
 
+const cors = require('cors');
+app.use(cors());
+
 dbconfig();
 
 app.use(express.json());

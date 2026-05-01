@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>📚 Book Manager</h1>
+
+        <!-- Add Book -->
+        <div class="card">
+            <h2>Add Book</h2>
+            <input type="text" id="title" placeholder="Title">
+            <input type="text" id="author" placeholder="Author">
+            <input type="number" id="price" placeholder="Price">
+            <input type="text" id="genre" placeholder="Genre">
+            <button onclick="addBook()">Add Book</button>
+        </div>
+
+        <!-- Book List -->
+        <div class="card">
+            <h2>All Books</h2>
+            <button onclick="getBooks()">Load Books</button>
+            <div id="bookList"></div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
