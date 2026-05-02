@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>📝 To-Do List</h2>
+
+  <!-- Input Section -->
+  <div class="input-group">
+    <input 
+      type="text" 
+      [(ngModel)]="task" 
+      placeholder="Enter task"
+    >
+
+    <input 
+      type="date" 
+      [(ngModel)]="date"
+    >
+
+    <!-- Prevent refresh -->
+    <button type="button" (click)="addTask()">
+      {{ editIndex === -1 ? 'Add Task' : 'Update Task' }}
+    </button>
+  </div>
+
+  <hr>
+
+  <!-- Task List -->
+  <ul>
+    <li *ngFor="let t of taskList; let i = index">
+
+      <!-- Task + Date -->
+      <div class="task-header">
+        <span class="task-name">{{ t.name }}</span>
+        <span class="task-date">{{ t.date }}</span>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-group">
+        <button type="button" (click)="editTask(i)">✏ Edit</button>
+        <button type="button" (click)="deleteTask(i)">🗑 Delete</button>
+      </div>
+
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,87 @@
+body {
+  background: #f4f6f8;
+}
+
+.container {
+  width: 380px;
+  margin: 60px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+button {
+  padding: 8px 14px;
+  margin: 6px 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Add button */
+button:first-of-type {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Edit button */
+li button:nth-child(3) {
+  background-color: #ffc107;
+}
+
+/* Delete button */
+li button:nth-child(4) {
+  background-color: #dc3545;
+  color: white;
+}
+
+ul {
+  padding: 0;
+  margin-top: 15px;
+}
+
+li {
+  list-style: none;
+  background: #f9f9f9;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+li b {
+  font-size: 16px;
+  color: #333;
+}
+
+li span {
+  font-size: 13px;
+  color: #777;
+}
