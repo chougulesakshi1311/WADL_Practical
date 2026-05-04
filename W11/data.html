@@ -10,42 +10,42 @@
 </head>
 <body>
 
-<h2>Registered Users</h2>
+    <h2>Registered Users</h2>
 
-<table id="table">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Mobile</th>
-        <th>DOB</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Username</th>
-    </tr>
-</table>
+    <table id="table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>DOB</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Username</th>
+        </tr>
+    </table>
 
-<script>
-function loadData() {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const table = document.getElementById("table");
+    <script>
+        function loadData() {
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const table = document.getElementById("table");
 
-    users.forEach(u => {
-        table.innerHTML += `
-            <tr>
-                <td>${u.name}</td>
-                <td>${u.email}</td>
-                <td>${u.mobile}</td>
-                <td>${u.dob}</td>
-                <td>${u.city}</td>
-                <td>${u.address}</td>
-                <td>${u.username}</td>
-            </tr>
-        `;
-    });
-}
+            users.forEach(u => {
+                table.innerHTML += `
+                    <tr>
+                        <td>${u.name}</td>
+                        <td>${u.email}</td>
+                        <td>${u.mobile}</td>
+                        <td>${u.dob}</td>
+                        <td>${u.city}</td>
+                        <td>${u.address}</td>
+                        <td>${u.username}</td>
+                    </tr>
+                `;
+            });
+        }
 
-loadData();
-</script>
+        loadData();
+    </script>
 
 </body>
 </html>

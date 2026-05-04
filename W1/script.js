@@ -74,7 +74,7 @@ const products = [
 		const tbody = document.getElementById("productBody");
 		tbody.innerHTML = "";
 
-		const start = currentPage * rowPerPage - rowPerPage;
+		const start = (currentPage-1) * rowPerPage;
 		const end = start + rowPerPage;
 		const pageProducts = products.slice(start, end);
 
@@ -89,8 +89,6 @@ const products = [
 			`;
 			tbody.innerHTML += row;
 		}
-
-		document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${Math.ceil(pageProducts.length / rowPerPage)}`;
 	}
 
 	function nextPage() {

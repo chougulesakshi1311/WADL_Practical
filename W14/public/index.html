@@ -84,31 +84,28 @@ h2 {
 
 <body>
 
-<h2>User Directory</h2>
+    <h2>User Directory</h2>
 
-<div class="container" id="users"></div>
+    <div class="container" id="users"></div>
 
-<script>
-fetch('/api/users')
-.then(res => res.json())
-.then(data => {
-    const container = document.getElementById('users');
-
-    data.forEach(user => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        card.innerHTML = `
-            <div class="avatar">${user.name.charAt(0)}</div>
-            <h3>${user.name}</h3>
-            <p>📧 ${user.email}</p>
-            <span class="city">${user.city}</span>
-        `;
-
-        container.appendChild(card);
-    });
-});
-</script>
+    <script>
+        fetch('/api/users')
+        .then(res => res.json())
+        .then(data => {
+            let output = "";
+            data.forEach(user => {
+                output += `
+                    <div class="card">
+                        <div class="avatar">${user.name.charAt(0)}</div>
+                        <h3>${user.name}</h3>
+                        <p>${user.email}</p>
+                        <span class="city">${user.city}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('users').innerHTML = output;
+        });
+    </script>
 
 </body>
 </html>

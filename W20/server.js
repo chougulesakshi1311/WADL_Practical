@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const dbconfig = require('./dbconfig/dbconfig');
 const employeeRoutes = require('./routes/employee');
 
-const cors = require('cors');
-app.use(cors());
-
 dbconfig();
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.use(express.json());
 app.use('/employees', employeeRoutes);

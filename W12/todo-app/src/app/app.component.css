@@ -1,87 +1,54 @@
-body {
-  background: #f4f6f8;
-}
-
-.container {
-  width: 380px;
-  margin: 60px auto;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
+.todo-container {
+  max-width: 400px;
+  margin: 40px auto;
   font-family: Arial, sans-serif;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
 }
 
-h2 {
-  margin-bottom: 15px;
-  color: #333;
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 input {
-  width: 90%;
-  padding: 10px;
-  margin: 6px 0;
+  flex: 1;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-}
-
-input:focus {
-  border-color: #007bff;
+  border-radius: 4px;
 }
 
 button {
-  padding: 8px 14px;
-  margin: 6px 4px;
+  padding: 8px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  color: white;
+  transition: 0.2s;
 }
 
 button:hover {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
-/* Add button */
-button:first-of-type {
-  background-color: #007bff;
-  color: white;
-}
+.btn-primary { background-color: #28a745; }
+.btn-edit { background-color: #ffc107; color: black; margin-right: 5px; }
+.btn-delete { background-color: #dc3545; }
 
-/* Edit button */
-li button:nth-child(3) {
-  background-color: #ffc107;
-}
-
-/* Delete button */
-li button:nth-child(4) {
-  background-color: #dc3545;
-  color: white;
-}
-
-ul {
-  padding: 0;
-  margin-top: 15px;
-}
-
-li {
+.task-list {
   list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
   background: #f9f9f9;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 8px;
-  text-align: left;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-li b {
-  font-size: 16px;
-  color: #333;
-}
-
-li span {
-  font-size: 13px;
-  color: #777;
+  margin-bottom: 5px;
+  border-radius: 4px;
 }

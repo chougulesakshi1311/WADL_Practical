@@ -1,163 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-
+    <title>AJAX TO-DO LIST</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0;
+            font-family: Arial;
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: rgb(78, 169, 111);
+            
         }
-        .container {
-            width: 400px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
+
+        input[type="text"] {
+            width: 60%;
+            padding: 8px;
         }
-        h2 {
-            margin-bottom: 20px;
-        }
-        input {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+
         button {
-            padding: 10px 15px;
-            border: none;
-            background: #667eea;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #5a67d8;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background: #f1f1f1;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .date {
-            font-size: 12px;
-            color: gray;
-        }
-        .btns button {
+            padding: 8px;
             margin-left: 5px;
-            padding: 5px 10px;
         }
-        .btns button:first-child {
-            background: green;
-        }
-        .btns button:last-child {
-            background: red;
+
+        li {
+            margin-top: 10px;
+            list-style:disc;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h2>To-Do List</h2>
-        <input type="text" id="taskInput" placeholder="Enter task">
-        <input type="date" id="dateInput">
-        <button onclick="addTask()">Add</button> 
-        <ul id="taskList"></ul>
-    </div>
+    <h1>TO-DO List</h1>
+    <input type="text" placeholder="Add a task" id="taskInput">
+    <button onClick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+
 
     <script>
-        const API = "http://localhost:3000/todos";
+        function ajax(method, url, data, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = () => callback(JSON.parse(xhr.responseText));
+            xhr.send(data ? JSON.stringify(data) : null);
+        }
+        function renderTasks(tasks) {
+            const list = document.getElementById('taskList');
+            list.innerHTML = "";
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <input type="text" value="${task.name}" onChange="updateTask(${task.id},this.value)">
+                <button onClick="deleteTask(${task.id},this.value)">❌</button>
+                `;
+                list.appendChild(li);
 
+            });
+        }
         function loadTasks() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", API, true);
-
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    const todos = JSON.parse(xhr.responseText);
-                    const list = document.getElementById("taskList");
-                    list.innerHTML = "";
-
-                    todos.forEach(todo => {
-                        const li = document.createElement("li");
-                        li.innerHTML = `
-                            <div>
-                                <b>${todo.text}</b>
-                                <div class="date">${todo.date || "No date"}</div>
-                            </div>
-                            <div class="btns">
-                                <button onclick="editTask(${todo.id})">Edit</button>
-                                <button onclick="deleteTask(${todo.id})">Delete</button>
-                            </div>
-                        `;
-                        list.appendChild(li);
-                    });
-                }
-            }
-
-            xhr.send();
+            ajax("GET", "/tasks", null, renderTasks);
         }
-
         function addTask() {
-            const text = document.getElementById("taskInput").value;
-            const date = document.getElementById("dateInput").value;
-
-            if(!text) return;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", API, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    loadTasks();
-                }
-            }
-            xhr.send(JSON.stringify({text: text, date: date}));
-            document.getElementById("taskInput").value = "";
-            document.getElementById("dateInput").value = "";
+            const input = document.getElementById('taskInput');
+            const name = input.value.trim();
+            if (!name) return;
+            ajax("POST", "/tasks", { name }, loadTasks);
+            input.value = "";
         }
-
-        function deleteTask(id) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("DELETE", `${API}/${id}`, true);
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    loadTasks();
-                }
-            }
-            xhr.send();
+        function updateTask(id, name) {
+            ajax("PUT", `/tasks/${id}`, { name }, loadTasks);
         }
-
-        function editTask(id) {
-            const newText = prompt("Update task:");
-            const newDate = prompt("Update date (YYYY-MM-DD):");
-
-            if(!newText) return;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open("PUT", `${API}/${id}`, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    loadTasks();
-                }
-            }
-            xhr.send(JSON.stringify({text: newText, date: newDate}));
+        function deleteTask(id, name) {
+            ajax("DELETE", `/tasks/${id}`, null, loadTasks);
         }
-
         loadTasks();
+
     </script>
 </body>
+
 </html>

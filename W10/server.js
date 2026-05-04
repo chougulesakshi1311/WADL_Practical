@@ -1,46 +1,35 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+
+let tasks = [];
+let idCounter =1;
+
 
 app.use(express.json());
-app.use(cors());
+app.use(express.static(__dirname));
 
-let todos = [];
-
-// GET all todos
-app.get("/todos", (req, res) => {
-    res.json(todos);
+app.get("/tasks",(req,res)=>{
+    res.json(tasks);
 });
 
-// ADD todo
-app.post("/todos", (req, res) => {
-    const newTodo = {
-        id: Date.now(),
-        text: req.body.text,
-        date: req.body.date
-    };
-    todos.push(newTodo);
-    res.json(newTodo);
+app.post("/tasks",(req,res)=>{
+    const task = {id : idCounter++,name : req.body.name};
+    tasks.push(task);
+    res.json(task);
 });
 
-// UPDATE todo
-app.put("/todos/:id", (req, res) => {
-    const id = parseInt(req.params.id);
-
-    todos = todos.map(todo =>
-        todo.id === id
-            ? { ...todo, text: req.body.text, date: req.body.date }
-            : todo
-    );
-
-    res.json({ message: "Updated" });
+app.put("/tasks/:id",(req,res)=>{
+    const id = +req.params.id;
+    const task = tasks.find(t => t.id === id);
+    if(task) task.name = req.body.name;
+    res.json(task || {});
 });
 
-// DELETE todo
-app.delete("/todos/:id", (req, res) => {
-    const id = parseInt(req.params.id);
-    todos = todos.filter(todo => todo.id !== id);
-    res.json({ message: "Deleted" });
+app.delete("/tasks/:id",(req,res)=>{
+    const id = +req.params.id;
+    tasks = tasks.filter(t => t.id !== id);
+    res.json({ success :true });
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+const PORT = 3000;
+app.listen(PORT,()=>console.log(`Server running on Port http://localhost:${PORT}`));
